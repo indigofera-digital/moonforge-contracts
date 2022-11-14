@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.4;
+pragma solidity ^0.8.17;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "./Asset.sol";
@@ -13,10 +13,10 @@ contract AssetFactory is Ownable {
         string memory _name,
         string memory _symbol,
         string memory _baseURI,
-        string memory _id,
-        address _imx) public onlyOwner {
+        address _imx
+    ) public onlyOwner {
 
-        Asset asset = new Asset(_owner, _name, _symbol, _baseURI, _id,_imx);
+        Asset asset = new Asset(_owner, _name, _symbol, _baseURI, _imx);
         collections.push(asset);
     }
 

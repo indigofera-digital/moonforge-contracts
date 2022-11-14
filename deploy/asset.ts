@@ -11,23 +11,14 @@ async function main() {
         throw new Error("please pass --network");
     }
 
-    const owner = getEnv("CONTRACT_OWNER_ADDRESS");
-    const name = getEnv("CONTRACT_NAME");
-    const symbol = getEnv("CONTRACT_SYMBOL");
-    const baseUri = getEnv("CONTRACT_BASEURI");
-
-    // const Asset = await ethers.getContractFactory("Asset");
     const Asset = await ethers.getContractFactory("AssetFactory");
-    const imxAddress = getIMXAddress(hardhatArguments.network);
-    // const asset = await Asset.deploy(owner, name, symbol, baseUri, imxAddress);
     const asset = await Asset.deploy();
     console.log("Deployed Contract Address:", asset.address);
-    console.log('Verifying contract in 1 minutes...');
-    await sleep(60000 * 1);
+    console.log('Verifying contract in 3 minutes...');
+    await sleep(60000 * 3);
     await run("verify:verify", {
         address: asset.address,
-        // constructorArguments: [owner, name, symbol, baseUri, imxAddress],
-        constructorArguments: [],
+        // constructorArguments: [],
     });
 }
 

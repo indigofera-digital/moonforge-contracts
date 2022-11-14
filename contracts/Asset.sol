@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.4;
+pragma solidity ^0.8.17;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "./Mintable.sol";
@@ -7,18 +7,22 @@ import "./Mintable.sol";
 contract Asset is ERC721, Mintable {
 
     string baseURI;
-    string public id;
 
     constructor(
         address _owner,
         string memory _name,
         string memory _symbol,
         string memory _baseURI,
-        string memory _id,
         address _imx
     ) ERC721(_name, _symbol) Mintable(_owner, _imx) {
-        baseURI = _baseURI;
-        id = _id;
+
+        string memory uri = string(abi.encodePacked(
+            _baseURI,
+            address(this),
+            "/"
+        ));
+
+        setBaseURI(uri);
     }
 
     function _mintFor(
